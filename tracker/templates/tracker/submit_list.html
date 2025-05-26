@@ -1,0 +1,29 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+    <h2 class="mb-4">Submit a Corruption Report</h2>
+    <form method="post" enctype="multipart/form-data" class="bg-white p-4 border rounded">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Name (optional):</label>
+            <input type="text" name="name" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label>Location:</label>
+            <input type="text" name="location" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Description:</label>
+            <textarea name="description" class="form-control" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label>Upload Evidence (optional):</label>
+            <input type="file" name="evidence" class="form-control">
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" name="anonymous" class="form-check-input" id="anonCheck">
+            <label for="anonCheck" class="form-check-label">Submit anonymously</label>
+        </div>
+        <button type="submit" class="btn btn-danger">Submit Report</button>
+    </form>
+{% endblock %}

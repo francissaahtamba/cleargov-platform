@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submitted Reports</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #2c3e50; }
+        .report {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .evidence a {
+            text-decoration: none;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submitted Reports</h1>
+
+    {% for report in reports %}
+        <div class="report">
+            <p><strong>Name:</strong> {{ report.reporter_name|default:"Anonymous" }}</p>
+            <p><strong>Location:</strong> {{ report.location }}</p>
+            <p><strong>Description:</strong> {{ report.description }}</p>
+            <p><strong>Date:</strong> {{ report.submitted_at|date:"F j, Y, g:i a" }}</p>
+            {% if report.evidence %}
+                <p class="evidence"><strong>Evidence:</strong> 
+                <a href="{{ report.evidence.url }}" target="_blank">View Evidence</a></p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No reports have been submitted yet.</p>
+    {% endfor %}
+
+    <a href="{% url 'submit_report' %}">Submit Another Report</a>
+</body>
+</html>
