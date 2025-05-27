@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-o1a^yc4p&dksn0wrlmgux3%uzr^ekgr-q^f7*_4-tbf00wucy)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['francissaahtamba.pythonanywhere.com']
+ALLOWED_HOSTS = ['cleargov-platform.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'cleargov.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # or the correct path to your templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
