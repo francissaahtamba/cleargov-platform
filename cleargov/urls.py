@@ -21,8 +21,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls')),         # Homepage routed to 'home' app
-    path('tracker/', include('tracker.urls')),  # Corruption reporting app
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', include('tracker.urls')),  # Main entry point
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,59 +1,44 @@
 {% extends 'tracker/base.html' %}
 
 {% block content %}
-  <div class="container mt-4">
-    <h2 class="mb-4 text-center">Budget Allocation & Spending</h2>
+<h2 class="mb-4">Budgets</h2>
 
-    <canvas id="budgetChart" width="400" height="200"></canvas>
-  </div>
+<canvas id="budgetChart" width="400" height="200"></canvas>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  {{ labels|json_script:"labels-data" }}
-  {{ allocated|json_script:"allocated-data" }}
-  {{ spent|json_script:"spent-data" }}
-  <script>
-    const labels = JSON.parse(document.getElementById('labels-data').textContent);
-    const allocatedData = JSON.parse(document.getElementById('allocated-data').textContent);
-    const spentData = JSON.parse(document.getElementById('spent-data').textContent);
-   
-    const data = {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Allocated Amount',
-          data: allocatedData,
-          backgroundColor: 'rgba(54, 162, 235, 0.6)'
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const labels = JSON.parse('{{ labels|escapejs }}');
+    const allocated = JSON.parse('{{ allocated|escapejs }}');
+    const spent = JSON.parse('{{ spent|escapejs }}');
+
+    const ctx = document.getElementById('budgetChart').getContext('2d');
+    const budgetChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Allocated',
+                    data: allocated,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                },
+                {
+                    label: 'Spent',
+                    data: spent,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                }
+            ]
         },
-        {
-          label: 'Spent Amount',
-          data: spentData,
-          backgroundColor: 'rgba(255, 99, 132, 0.6)'
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      ]
-    };
-
-    const config = {
-      type: 'bar',
-      data: data,
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Budget Comparison'
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    };
-
-    const myChart = new Chart(
-      document.getElementById('budgetChart'),
-      config
-    );
-  </script>
+    });
+</script>
 {% endblock %}

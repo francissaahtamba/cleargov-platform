@@ -1,10 +1,6 @@
 {% extends 'tracker/base.html' %}
 
 {% block content %}
-    <div class="text-center">
-        <h1 class="mb-4">Welcome to ClearGov</h1>
-        <a href="/budgets/" class="btn btn-primary btn-lg me-2">View Budgets</a>
-        <a href="/report/" class="btn btn-danger btn-lg">Submit Corruption Report</a>
-        <a href="{% url 'report_list' %}">View All Submitted Reports</a>
-    </div>
+    <h1>Welcome to ClearGov</h1>
+    <p>This platform promotes transparency, accountability, and citizen reports.</p>
 {% endblock %}
