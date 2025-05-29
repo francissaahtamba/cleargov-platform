@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/submit_report_screen.dart';
 
 void main() {
   runApp(const CorruptionTrackerApp());
@@ -73,11 +74,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const Center(child: Text("Home Page"));
-}
-
-class SubmitReportScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => const Center(child: Text("Submit Report Page"));
 }
 
 class ViewReportsScreen extends StatelessWidget {

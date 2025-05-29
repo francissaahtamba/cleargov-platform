@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SubmitReportScreen extends StatefulWidget {
   const SubmitReportScreen({super.key});
@@ -17,15 +19,37 @@ class _SubmitReportScreenState extends State<SubmitReportScreen> {
   String _location = '';
   DateTime _selectedDate = DateTime.now();
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // TODO: send data to API
+ Future<void> _submitForm() async {
+  if (_formKey.currentState!.validate()) {
+    _formKey.currentState!.save();
+
+    final url = Uri.parse('http://<your_django_server>/api/reports/'); // Replace with actual endpoint
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'full_name': _fullName,
+        'email': _email,
+        'title': _title,
+        'description': _description,
+        'location': _location,
+        'date': _selectedDate.toIso8601String(),
+      }),
+    );
+
+    if (response.statusCode == 201) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Report submitted successfully!')),
       );
+      _formKey.currentState!.reset();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to submit report')),
+      );
     }
   }
+}
 
   Future<void> _pickDate() async {
     final DateTime? picked = await showDatePicker(
