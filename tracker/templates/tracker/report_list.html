@@ -1,0 +1,31 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Approved Reports</h2>
+
+    {% if reports %}
+        {% for report in reports %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ report.location }}</h5>
+                    <p class="card-text">{{ report.description }}</p>
+                    <p class="text-muted">
+                        {% if report.reporter_name %}
+                            Reported by: {{ report.reporter_name }}
+                        {% else %}
+                            <em>Anonymous</em>
+                        {% endif %}
+                        on {{ report.date_reported|date:"F d, Y" }}
+                    </p>
+                    {% if report.evidence %}
+                        <a href="{{ report.evidence.url }}" class="btn btn-sm btn-outline-primary" target="_blank">View Evidence</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No approved reports available yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

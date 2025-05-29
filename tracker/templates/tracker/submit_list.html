@@ -1,0 +1,36 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Report a Corruption Case</h2>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Your Name (Optional)</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter your name">
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Location *</label>
+            <input type="text" name="location" class="form-control" required placeholder="Where did it happen?">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description *</label>
+            <textarea name="description" rows="4" class="form-control" required placeholder="What happened?"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="evidence" class="form-label">Upload Evidence (optional)</label>
+            <input type="file" name="evidence" class="form-control">
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" name="anonymous" class="form-check-input" id="anonCheck">
+            <label class="form-check-label" for="anonCheck">Submit anonymously</label>
+        </div>
+        <button type="submit" class="btn btn-danger">Submit Report</button>
+    </form>
+</div>
+{% endblock %}
