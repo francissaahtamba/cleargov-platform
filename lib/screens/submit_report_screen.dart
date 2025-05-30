@@ -19,37 +19,37 @@ class _SubmitReportScreenState extends State<SubmitReportScreen> {
   String _location = '';
   DateTime _selectedDate = DateTime.now();
 
- Future<void> _submitForm() async {
-  if (_formKey.currentState!.validate()) {
-    _formKey.currentState!.save();
+  Future<void> _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
 
-    final url = Uri.parse('http://<your_django_server>/api/reports/'); // Replace with actual endpoint
+      final url = Uri.parse('https://cleargov-platform-vxh2.onrender.com/api/submit-report/');
 
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'full_name': _fullName,
-        'email': _email,
-        'title': _title,
-        'description': _description,
-        'location': _location,
-        'date': _selectedDate.toIso8601String(),
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Report submitted successfully!')),
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'full_name': _fullName,
+          'email': _email,
+          'title': _title,
+          'description': _description,
+          'location': _location,
+          'date': _selectedDate.toIso8601String(),
+        }),
       );
-      _formKey.currentState!.reset();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to submit report')),
-      );
+
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Report submitted successfully!')),
+        );
+        _formKey.currentState!.reset();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to submit report: ${response.body}')),
+        );
+      }
     }
   }
-}
 
   Future<void> _pickDate() async {
     final DateTime? picked = await showDatePicker(
