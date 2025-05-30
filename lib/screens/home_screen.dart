@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'submit_report_screen.dart';
+import 'view_reports_screen.dart';
+import 'budget_screen.dart';
+import 'admin_login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,19 +16,39 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/submit'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SubmitReportScreen()),
+                );
+              },
               child: const Text('Submit Report'),
             ),
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/view'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ViewReportsScreen()),
+                );
+              },
               child: const Text('View Reports'),
             ),
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/budgets'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BudgetScreen()),
+                );
+              },
               child: const Text('View Budgets'),
             ),
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/admin'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AdminLoginScreen()),
+                );
+              },
               child: const Text('Admin Login'),
             ),
           ],

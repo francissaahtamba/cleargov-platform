@@ -30,14 +30,14 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
-
-  final List<Widget> _screens = [
-    HomeScreen(),
-    SubmitReportScreen(),
-    ViewReportsScreen(),
-    BudgetScreen(),
-    AdminLoginScreen(),
-  ];
+  
+final List<Widget> _screens = [
+  HomeScreen(onNavigate: _onItemTapped),
+  SubmitReportScreen(),
+  ViewReportsScreen(),
+  BudgetScreen(),
+  AdminLoginScreen(),
+];
 
   void _onItemTapped(int index) {
     setState(() {
